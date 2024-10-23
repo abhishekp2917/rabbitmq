@@ -1,0 +1,60 @@
+*   What is RabbitMQ ?
+
+>>  RabbitMQ is an open-source message broker that facilitates communication between different applications, systems,
+    or services.
+
+    It implements the Advanced Message Queuing Protocol (AMQP), but also supports other protocols like MQTT and STOMP.
+
+    Essentially, RabbitMQ acts as a message queue, enabling asynchronous communication and decoupling systems to improve
+    scalability and reliability.
+
+________________________________________________________________________________________________________________________
+
+*   What are key concepts in RabbitMQ ?
+
+>>  Below is the list of key concepts in RabbitMQ :
+
+    (1) Producer: An application that sends messages to the queue.
+
+    (2) Queue: A storage location where messages are held until they are consumed. Each message stays in the queue until processed.
+
+    (3) Consumer: An application or service that receives and processes messages from the queue.
+
+    (4) Exchange: Routes messages from producers to appropriate queues based on rules or routing keys.
+
+    (5) Binding: A connection between an exchange and a queue, defining the routing logic.
+
+    (6) Routing Key: A key that the producer assigns to the message, used by exchanges to determine the destination queue.
+
+________________________________________________________________________________________________________________________
+
+*   What are Connections and Channels in RabbitMQ ?
+
+>>  In RabbitMQ, connections and channels are essential concepts that determine how producers and consumers interact with
+    the broker. They play an important role in resource management, concurrency, and performance optimization.
+
+    (1) Connections:
+
+        A connection is a TCP connection between your application (producer or consumer) and the RabbitMQ server (broker).
+        It serves as the communication bridge between the two.
+
+        - Expensive to Create: Opening and maintaining a connection takes time and resources.
+
+        - Long-Lived: Typically, connections are kept open for the duration of the application’s runtime, rather than opening and closing frequently.
+
+        - Single Connection per Application: It's common to establish only one connection per application and reuse it across multiple components.
+
+    (2) Channels:
+
+        A channel is a lightweight, virtual connection that operates inside a real TCP connection.
+        It allows multiple operations (e.g., publishing or consuming messages) to be carried out simultaneously over a single connection.
+
+        - Lightweight: Channels are much cheaper to create and close than connections.
+
+        - Concurrency: Each thread or process in your application can use its own channel, allowing parallel message processing.
+
+        - Isolated State: Channels maintain their own state, such as consumer tags and queue bindings.
+
+        - Multiple Channels per Connection: A single connection can handle many channels, making it efficient for applications with many concurrent tasks.
+
+________________________________________________________________________________________________________________________
