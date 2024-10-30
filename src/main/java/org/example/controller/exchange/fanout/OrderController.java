@@ -1,9 +1,9 @@
 package org.example.controller.exchange.fanout;
 
-import org.example.consumer.exchange.fanout.NotificationConsumer;
-import org.example.consumer.exchange.fanout.PaymentConsumer;
+import org.example.service.consumer.exchange.fanout.NotificationConsumer;
+import org.example.service.consumer.exchange.fanout.PaymentConsumer;
 import org.example.model.Order;
-import org.example.producer.exchange.fanout.OrderProducer;
+import org.example.service.producer.exchange.fanout.OrderProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

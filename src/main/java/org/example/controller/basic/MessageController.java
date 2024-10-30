@@ -1,7 +1,7 @@
 package org.example.controller.basic;
 
-import org.example.consumer.basic.TextMessageConsumer;
-import org.example.producer.basic.TextMessageProducer;
+import org.example.service.consumer.basic.TextMessageConsumer;
+import org.example.service.producer.basic.TextMessageProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

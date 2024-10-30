@@ -1,8 +1,8 @@
 package org.example.controller.basic;
 
-import org.example.consumer.basic.JsonMessageConsumer;
+import org.example.service.consumer.basic.JsonMessageConsumer;
 import org.example.model.Employee;
-import org.example.producer.basic.JsonMessageProducer;
+import org.example.service.producer.basic.JsonMessageProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

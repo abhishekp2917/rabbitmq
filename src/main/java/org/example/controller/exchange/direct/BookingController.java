@@ -1,9 +1,9 @@
 package org.example.controller.exchange.direct;
 
-import org.example.consumer.exchange.topic.EventBookingConsumer;
-import org.example.consumer.exchange.topic.JourneyBookingConsumer;
+import org.example.service.consumer.exchange.direct.EventBookingConsumer;
+import org.example.service.consumer.exchange.direct.JourneyBookingConsumer;
 import org.example.model.Booking;
-import org.example.producer.exchange.direct.BookingProducer;
+import org.example.service.producer.exchange.direct.BookingProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

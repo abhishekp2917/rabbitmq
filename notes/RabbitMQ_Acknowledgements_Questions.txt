@@ -1,0 +1,192 @@
+*   What are various types of message Acknowledgment mode from Consumer in RabbitMQ ?
+
+>>  In RabbitMQ, message acknowledgment (ack) modes determine how messages are confirmed as successfully processed by consumers.
+
+    Here are the main types of acknowledgment modes in RabbitMQ:
+
+    (1) Automatic Acknowledgment (autoAck = true):
+
+        Messages are automatically acknowledged by the RabbitMQ client library immediately after they are delivered to the consumer,
+        regardless of whether they are successfully processed.
+
+        There’s a risk of message loss if a consumer fails to process the message after receiving it since RabbitMQ assumes
+        the message was successfully handled.
+
+        ```
+            @RabbitListener(queues = "<Queue_Name>", ackMode = "AUTO")
+            public void listen(org.springframework.amqp.core.Message amqpMessage) {
+                System.out.println("Received (AUTO): " + amqpMessage.getBody());
+                // Message is automatically acknowledged after being received
+            }
+        ```
+
+    (2) Manual Acknowledgment (autoAck = false):
+
+        The consumer explicitly sends an acknowledgment back to RabbitMQ after processing the message.
+
+        If the consumer does not acknowledge, RabbitMQ will keep the message in the queue or requeue it for another attempt (depending on settings).
+        Manual acknowledgment provides more reliability, especially when a consumer might encounter processing errors or crashes.
+
+        ```
+            @RabbitListener(queues = "<Queue_Name>", ackMode = "MANUAL")
+            public void listen(org.springframework.amqp.core.Message amqpMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+                System.out.println("Received (MANUAL): " + amqpMessage.getBody());
+                // Manually acknowledge the message
+                channel.basicAck(deliveryTag, false);
+            }
+        ```
+
+    (3) Negative Acknowledgment (nack):
+
+        Consumers can reject messages using basicNack (negative acknowledgment).
+
+        With basicNack, the consumer can specify whether the message should be requeued or discarded.
+        This is useful for handling specific message-processing failures without affecting the rest of the message queue.
+
+        ```
+            @RabbitListener(queues = "<Queue_Name>", ackMode = "MANUAL")
+            public void listen(org.springframework.amqp.core.Message amqpMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+               System.out.println("Received (NACK, requeue): " + message);
+               try {
+                   // Simulate failure for demonstration
+                   if (message.contains("fail")) {
+                       throw new RuntimeException("Simulated processing failure");
+                   }
+                   // Manually acknowledge if successful
+                   channel.basicAck(deliveryTag, false);
+               } catch (Exception e) {
+                   // Negative acknowledgment with requeue = true
+                   channel.basicNack(deliveryTag, false, true);
+               }
+            }
+        ```
+
+    (4) Reject (reject):
+
+        Similar to basicNack, the basicReject method allows a message to be explicitly rejected.
+
+        It only allows the option to requeue or discard the message, without a multiple-message option.
+        basicReject is a simpler form of nack, typically used for a single message acknowledgment.
+
+        ```
+            @RabbitListener(queues = "<Queue_Name>", ackMode = "MANUAL")
+            public void listen(org.springframework.amqp.core.Message amqpMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+               System.out.println("Received (REJECT, requeue): " + message);
+               try {
+                   // Simulate failure for demonstration
+                   if (message.contains("fail")) {
+                       throw new RuntimeException("Simulated processing failure");
+                   }
+                   // Manually acknowledge if successful
+                   channel.basicAck(deliveryTag, false);
+               } catch (Exception e) {
+                   // Reject with requeue = true
+                   channel.basicReject(deliveryTag, true);
+               }
+            }
+        ```
+________________________________________________________________________________________________________________________
+
+*   What is the difference between Reject with requeue=true and Negative Acknowledgment requeue=true ?
+
+>>  In RabbitMQ, both basicReject and basicNack are used to negatively acknowledge messages, meaning they inform RabbitMQ
+    that the message was not processed successfully.
+
+    However, there are subtle differences in how they work:
+
+    (1) Reject with requeue=true:
+
+        - basicReject can only handle a single message at a time and does not support batch acknowledgment
+        - When you use basicReject with requeue=true, the rejected message will be placed back in the queue for another consumer to attempt processing.
+
+    (2) Negative Acknowledgment with requeue=true:
+
+        - basicNack is more flexible, as it can handle multiple messages at once, depending on the configuration (it has a multiple parameter).
+        - The basicNack method is often preferred for scenarios where you want to reject multiple messages simultaneously.
+        - When used with requeue=true, it behaves similarly to basicReject, putting the message(s) back into the queue for redelivery.
+
+________________________________________________________________________________________________________________________
+
+*   What is Channel Guaranteed mode and how many are them ?
+
+>>  Channel Guaranteed Mode refers to mechanisms that ensure messages are reliably delivered from producers to broker.
+
+    There are two Channel Guaranteed mode:
+
+    (1) Publisher Confirms:
+
+        - This mode allows the producer to receive acknowledgments from the broker (RabbitMQ) after the message is
+          successfully received and stored.
+
+        - Throughput is high as there is no overhead of transaction.
+
+    (2) Transactions:
+
+        - This mode allows a producer to group messages into transactions. The producer can publish multiple messages
+          and then either commit or roll back the entire batch.
+
+        - Throughput is low as there is an overhead of transaction.
+
+        - Transactions might be used in specific cases where atomicity is crucial.
+
+________________________________________________________________________________________________________________________
+
+*   What is Publisher Confirms in RabbitMQ ?
+
+>>  In RabbitMQ, Publisher Confirms are acknowledgments sent from the broker to the publisher indicating the status of
+    each message.
+
+    They allow publishers to confirm that messages are successfully received by the broker.
+
+    When using Publisher Confirms, the broker can respond in two ways:
+
+    (1) Basic Ack (Acknowledgment):
+
+        - This means the broker has successfully received and stored the message.
+
+        - Once an ack is received, the publisher can assume that the message has been safely received by RabbitMQ and is
+          ready for delivery to a consumer.
+
+    (2) Basic Nack (Negative Acknowledgment):
+
+        - This means the broker has failed to store the message, typically due to an error (e.g., a broker crash or some other issue).
+
+        - If a nack is received, the publisher should handle it by either retrying the message or logging it for further inspection.
+
+    How to Enable in Spring:
+
+    (1) Set the property
+
+        ```
+            spring.rabbitmq.publisher-confirm-type=correlated
+        ```
+
+    (2) Set 'ConfirmCallback' of RabbitTemplate by overriding 'confirm()' method of ConfirmCallback which will have implementation
+        of handling Ack and Nack.
+
+        ```
+            @Autowired
+            public BeanConfig(RabbitTemplate rabbitTemplate) {
+                rabbitTemplate.setConfirmCallback((CorrelationData correlationData, boolean ack, String cause) -> {
+                    if (ack) {
+                        System.out.println("Message acknowledged by broker with ID: " + ((correlationData!=null)?correlationData.getId():-1));
+                    }
+                    else {
+                        System.err.println("Message NOT acknowledged by broker with ID: " + ((correlationData!=null)?correlationData.getId():-1) + ". Cause: " + cause);
+                    }
+                });
+            }
+        ```
+________________________________________________________________________________________________________________________
+
+*   What is Transactions (Channel Guaranteed mode) in RabbitMQ ?
+
+>>  In this mode, a producer starts a transaction, publishes one or more messages, and then commits the transaction to
+    confirm the delivery of all published messages.
+
+    If any error occurs, the producer can roll back the transaction, ensuring that none of the messages are considered delivered.
+
+    How to use Transactions for data reliability in Spring:
+
+
+

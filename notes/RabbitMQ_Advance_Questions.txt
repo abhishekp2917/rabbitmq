@@ -1,0 +1,196 @@
+*   What is @Schedule annotation ?
+
+>>  The @Scheduled annotation in Spring is used to schedule tasks to be executed at a specific time or at regular intervals.
+    It simplifies the process of scheduling background tasks, such as batch jobs, recurring jobs, or one-time tasks.
+
+    Here’s how to use the @Scheduled annotation:
+
+    (1) Enable Scheduling:
+
+        First, you need to enable scheduling in your Spring application by adding the @EnableScheduling annotation to
+        main SpringBoot class.
+
+        ```
+            @SpringBootApplication
+            @EnableScheduling
+            public class Application {
+                public static void main(String[] args) {
+                    SpringApplication.run(Application.class, args);
+                }
+
+
+            }
+        ```
+
+    (2) Define a Scheduled Method:
+
+        Use the @Scheduled annotation on the method you want to run at scheduled intervals.
+
+________________________________________________________________________________________________________________________
+
+*   What are various attributes of @Schedule annotation ?
+
+>>  Here’s a detailed explanation of each attribute:
+
+
+    (1) fixedRate:
+
+        - Defines the interval between successive method executions in milliseconds.
+        - The method will be executed repeatedly at the specified rate even if previous execution is not finished.
+
+        ```
+            @Scheduled(fixedRate = 5000)
+            public void executeTask() {
+
+                // Executes every 5 seconds...
+            }
+        ```
+
+    (2) fixedDelay
+
+        - Specifies the delay (in milliseconds) between the completion of the last execution and the start of the next execution.
+        - This means that the next execution will only start after the current execution has finished and the specified delay has passed.
+
+        ```
+            @Scheduled(fixedDelay = 10000)
+            public void executeTask() {
+
+                // Executes 10 seconds after the last execution finishes...
+            }
+        ```
+
+    (3) initialDelay
+
+        - Specifies the initial delay (in milliseconds) before the first execution of the scheduled method.
+        - This delay occurs before the first invocation, after which the fixedRate or fixedDelay attributes take effect.
+
+        ```
+            @Scheduled(initialDelay = 5000, fixedRate = 10000)
+            public void executeTask() {
+
+                // Waits 5 seconds before first execution, then executes every 10 seconds...
+            }
+        ```
+
+    (4) cron
+
+        - Allows you to specify a cron expression for more complex scheduling needs.
+        - A cron expression is a string that specifies a schedule in a more granular way (second, minute, hour, day of month, month, day of week).
+
+        ```
+            @Scheduled(cron = "0 0 10 * * ?")
+            public void executeTask() {
+
+                // Executes every day at 10:00 AM...
+            }
+        ```
+
+        cron expression Format: "second minute hour day-of-month month day-of-week"
+        - second: 0-59
+        - minute: 0-59
+        - hour: 0-23 (0 = midnight)
+        - day-of-month: 1-31 (use ? if you are specifying day-of-week)
+        - month: 1-12 or JAN-DEC
+        - day-of-week: 0-6 (0 = Sunday, 1 = Monday, etc.) or SUN-SAT (use ? if you are specifying day-of-month)
+
+        Note: The ? character is used to denote "no specific value" and is often used in the day of the month or day of the week fields when you want to specify the other.
+
+    (5) zone
+
+        - Specifies the time zone for the cron expression.
+        - This can be useful if your application needs to run tasks in a specific time zone.
+
+        ```
+            @Scheduled(cron = "0 0 10 * * ?", zone = "America/New_York")
+            public void executeTask() {
+                // Executes every day at 10:00 AM in New York time...
+            }
+        ```
+________________________________________________________________________________________________________________________
+
+*   How to schedule RabbitMQ message consumer ?
+
+>>  To schedule a queue listener to listen to a queue at a particular time or after certain delay, one can use
+    @Schedule annotation.
+
+    Use 'RabbitListenerEndpointRegistry' to access listener which you want to start and stop at a specific time. By stopping
+    the listener, it will stop consuming message from the queue even if there are message present.
+
+    ```
+        @Autowired
+        private RabbitListenerEndpointRegistry rabbitListenerEndpointRegistry;
+    ```
+
+    Use @Scheduled with cron expression to schedule the listener to consume the message from the queue.
+
+    ```
+        @Scheduled(cron = "0 5 13 * * *")
+        public void startMediaUploadToAzureConsumer() {
+            rabbitListenerEndpointRegistry.getListenerContainer("<Listener_Id>").start();
+        }
+
+        @Scheduled(cron = "45 3 13 * * *")
+        public void stopMediaUploadToAzureConsumer() {
+            rabbitListenerEndpointRegistry.getListenerContainer("<Listener_Id>").stop();
+        }
+    ```
+________________________________________________________________________________________________________________________
+
+*   How to consume multiple message types from single queue ?
+
+>>  You can use @RabbitListener with @RabbitHandler to consume multiple message types from a single RabbitMQ queue in Spring.
+
+    The @RabbitListener annotation is placed on a class-level method that listens to the queue, while the @RabbitHandler
+    methods are defined to handle different types of messages within the class.
+
+    Define a single queue listener using @RabbitListener on the class to declare a listener for the specified queue.
+
+    ```
+        @RabbitListener(
+                id = org.example.constants.Queue.Q_TRANSACTION_PURCHASE,
+                ackMode = ConsumerAcknowledgementMode.AUTO,
+                concurrency = "3-5",
+                bindings = @QueueBinding(
+                        value = @Queue(
+                                value = org.example.constants.Queue.Q_TRANSACTION_PURCHASE,
+                                durable = "true",
+                                exclusive = "false",
+                                autoDelete = "false",
+                                arguments = {
+                                        @Argument(name = "x-queue-type", value = QueueType.CLASSIC)
+                                }),
+                        exchange = @Exchange(value = org.example.constants.Exchange.X_TRANSACTION, type = ExchangeType.TOPIC, durable = "true", autoDelete = "false"),
+                        key = "#.purchase.#"
+                )
+        )
+        @Service
+        public class PurchaseTransactionConsumer {
+
+            //multiple message type handler methods...
+        }
+    ```
+
+    Methods annotated with @RabbitHandler will receive messages and process them based on the type of the incoming message.
+    Spring will automatically route the message to the appropriate @RabbitHandler method based on the message type.
+
+    ```
+        @RabbitHandler
+        public void listenPurchaseOrder(Order order) {
+            System.out.println(String.format("Queue : %s, Order : %s", org.example.constants.Queue.Q_TRANSACTION_PURCHASE, order));
+        }
+
+        @RabbitHandler
+        public void listenPurchasePayment(Payment payment) {
+            System.out.println(String.format("Queue : %s, Payment : %s", org.example.constants.Queue.Q_TRANSACTION_PURCHASE, payment));
+        }
+    ```
+
+    Default Handler: You can also have a fallback handler that catches other message types (e.g., using String/Object as the message type).
+
+    ```
+        @RabbitHandler(isDefault = true)
+        public void listenPurchaseDefault(Object object) {
+            System.out.println(String.format("Queue : %s, Object : %s", org.example.constants.Queue.Q_TRANSACTION_PURCHASE, object));
+        }
+    ```
+________________________________________________________________________________________________________________________

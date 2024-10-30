@@ -1,0 +1,72 @@
+*   What are various types of RabbitMQ Exchanges ?
+
+>>  RabbitMQ provides different types of exchanges to handle message routing in various ways. Each exchange type serves
+    a specific purpose and routes messages differently based on the exchange type and the binding rules associated with it.
+
+    (1) Direct Exchange
+
+        - A direct exchange routes messages to queues based on a routing key.
+        - It delivers the message to the queues that are bound to the exchange with a routing key that exactly matches the message’s routing key.
+        - Useful when a message should be delivered to queues with a matching key.
+
+    (2) Fanout Exchange
+
+        - A fanout exchange routes messages to all queues bound to it, ignoring any routing key.
+        - This is ideal for broadcasting messages to multiple queues, such as sending notifications or updates to all subscribers.
+
+    (3) Topic Exchange
+
+        - A topic exchange routes messages based on pattern matching of routing keys, allowing partial matching with wildcard characters.
+            (a) '*' : matches exactly one word (For e.g. *.notification.*.*).
+            (b) '#' : matches zero or more words (For e.g. *.notification.#).
+
+        - Suitable for cases where messages need to be selectively routed based on topics or patterns, like logs.info or logs.error.database.
+
+    (4) Headers Exchange
+
+        - A headers exchange routes messages based on message headers, ignoring any routing key.
+        - Headers are matched against the message’s headers based on exact or wildcard matches.
+        - You can specify conditions using x-match=all (matches all specified headers) or x-match=any (matches any of the headers).
+
+    (5) Default (or Direct Named) Exchange
+
+        - The default exchange is a direct exchange with no explicit name ("").
+        - It allows messages to be delivered directly to a queue when the routing key matches the queue name.
+        - Useful for simple routing when each message should go directly to a specific queue by name.
+
+________________________________________________________________________________________________________________________
+
+*   What is dead letter exchange ?
+
+>>  A Dead Letter Exchange (DLX) in RabbitMQ is an exchange used to handle messages that can’t be delivered to their target queues.
+
+    This can happen if messages expire, get rejected, or exceed queue limits. When this happens, the message is sent to a
+    Dead Letter Exchange, which routes it to a separate 'Dead Letter Queue' which is a simple queue bound to that DLX.
+
+    This way, developers can inspect, troubleshoot, or reprocess these messages instead of losing them.
+
+________________________________________________________________________________________________________________________
+
+*   What are the scenarios in which a message could be dead lettered ?
+
+>>  Below are the common cases in which message end up in Dead Letter Exchange:
+
+    (1) Message Expiration:
+
+        - Messages with a TTL (time-to-live) setting that exceeds the specified time in the queue.
+
+        - The queue parameter 'x-message-ttl' sets a TTL for messages in the primary queue, after which if not processed by
+        the consumer, they are dead-lettered.
+
+    (2) Rejection:
+
+        - Messages explicitly rejected by consumers, usually with the basic.reject or basic.nack method and requeue set to false.
+
+    (3) Queue Overflow:
+
+        - Messages that exceed a queue’s maximum length or capacity limit.
+
+        - The queue parameters 'x-max-length' and 'x-max-length-bytes' limits for message count and total bytes in the queue,
+        respectively, after which excess messages are dead-lettered.
+
+________________________________________________________________________________________________________________________

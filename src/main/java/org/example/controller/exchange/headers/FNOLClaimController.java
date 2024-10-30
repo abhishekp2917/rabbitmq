@@ -1,9 +1,9 @@
 package org.example.controller.exchange.headers;
 
-import org.example.consumer.exchange.headers.EscalatedFNOLClaimConsumer;
-import org.example.consumer.exchange.headers.NormalFNOLClaimConsumer;
+import org.example.service.consumer.exchange.headers.EscalatedFNOLClaimConsumer;
+import org.example.service.consumer.exchange.headers.NormalFNOLClaimConsumer;
 import org.example.model.FNOLClaim;
-import org.example.producer.exchange.headers.FNOLClaimProducer;
+import org.example.service.producer.exchange.headers.FNOLClaimProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

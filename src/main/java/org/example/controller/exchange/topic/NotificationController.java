@@ -1,10 +1,10 @@
 package org.example.controller.exchange.topic;
 
-import org.example.consumer.exchange.direct.OtpNotificationConsumer;
-import org.example.consumer.exchange.direct.PaymentNotificationConsumer;
-import org.example.consumer.exchange.direct.SubscriberNotificationConsumer;
+import org.example.service.consumer.exchange.topic.OtpNotificationConsumer;
+import org.example.service.consumer.exchange.topic.PaymentNotificationConsumer;
+import org.example.service.consumer.exchange.topic.SubscriberNotificationConsumer;
 import org.example.model.Notification;
-import org.example.producer.exchange.topic.NotificationProducer;
+import org.example.service.producer.exchange.topic.NotificationProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

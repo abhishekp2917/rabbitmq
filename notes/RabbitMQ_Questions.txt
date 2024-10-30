@@ -58,3 +58,161 @@ ________________________________________________________________________________
         - Multiple Channels per Connection: A single connection can handle many channels, making it efficient for applications with many concurrent tasks.
 
 ________________________________________________________________________________________________________________________
+
+*   What are various types of message Acknowledgment mode from Consumer in RabbitMQ ?
+
+>>  In RabbitMQ, message acknowledgment (ack) modes determine how messages are confirmed as successfully processed by consumers.
+
+    Here are the main types of acknowledgment modes in RabbitMQ:
+
+    (1) Automatic Acknowledgment (autoAck = true):
+
+        Messages are automatically acknowledged by the RabbitMQ client library immediately after they are delivered to the consumer,
+        regardless of whether they are successfully processed.
+
+        There’s a risk of message loss if a consumer fails to process the message after receiving it since RabbitMQ assumes
+        the message was successfully handled.
+
+        ```
+            @RabbitListener(queues = "<Queue_Name>", ackMode = "AUTO")
+            public void listen(org.springframework.amqp.core.Message amqpMessage) {
+                System.out.println("Received (AUTO): " + amqpMessage.getBody());
+                // Message is automatically acknowledged after being received
+            }
+        ```
+
+    (2) Manual Acknowledgment (autoAck = false):
+
+        The consumer explicitly sends an acknowledgment back to RabbitMQ after processing the message.
+
+        If the consumer does not acknowledge, RabbitMQ will keep the message in the queue or requeue it for another attempt (depending on settings).
+        Manual acknowledgment provides more reliability, especially when a consumer might encounter processing errors or crashes.
+
+        ```
+            @RabbitListener(queues = "<Queue_Name>", ackMode = "MANUAL")
+            public void listen(org.springframework.amqp.core.Message amqpMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+                System.out.println("Received (MANUAL): " + amqpMessage.getBody());
+                // Manually acknowledge the message
+                channel.basicAck(deliveryTag, false);
+            }
+        ```
+
+    (3) Negative Acknowledgment (nack):
+
+        Consumers can reject messages using basicNack (negative acknowledgment).
+
+        With basicNack, the consumer can specify whether the message should be requeued or discarded.
+        This is useful for handling specific message-processing failures without affecting the rest of the message queue.
+
+        ```
+            @RabbitListener(queues = "<Queue_Name>", ackMode = "MANUAL")
+            public void listen(org.springframework.amqp.core.Message amqpMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+               System.out.println("Received (NACK, requeue): " + message);
+               try {
+                   // Simulate failure for demonstration
+                   if (message.contains("fail")) {
+                       throw new RuntimeException("Simulated processing failure");
+                   }
+                   // Manually acknowledge if successful
+                   channel.basicAck(deliveryTag, false);
+               } catch (Exception e) {
+                   // Negative acknowledgment with requeue = true
+                   channel.basicNack(deliveryTag, false, true);
+               }
+            }
+        ```
+
+    (4) Reject (reject):
+
+        Similar to basicNack, the basicReject method allows a message to be explicitly rejected.
+
+        It only allows the option to requeue or discard the message, without a multiple-message option.
+        basicReject is a simpler form of nack, typically used for a single message acknowledgment.
+
+        ```
+            @RabbitListener(queues = "<Queue_Name>", ackMode = "MANUAL")
+            public void listen(org.springframework.amqp.core.Message amqpMessage, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag) {
+               System.out.println("Received (REJECT, requeue): " + message);
+               try {
+                   // Simulate failure for demonstration
+                   if (message.contains("fail")) {
+                       throw new RuntimeException("Simulated processing failure");
+                   }
+                   // Manually acknowledge if successful
+                   channel.basicAck(deliveryTag, false);
+               } catch (Exception e) {
+                   // Reject with requeue = true
+                   channel.basicReject(deliveryTag, true);
+               }
+            }
+        ```
+________________________________________________________________________________________________________________________
+
+*   What is the difference between Reject with requeue=true and Negative Acknowledgment requeue=true ?
+
+>>  In RabbitMQ, both basicReject and basicNack are used to negatively acknowledge messages, meaning they inform RabbitMQ
+    that the message was not processed successfully.
+
+    However, there are subtle differences in how they work:
+
+    (1) Reject with requeue=true:
+
+        - basicReject can only handle a single message at a time and does not support batch acknowledgment
+        - When you use basicReject with requeue=true, the rejected message will be placed back in the queue for another consumer to attempt processing.
+
+    (2) Negative Acknowledgment with requeue=true:
+
+        - basicNack is more flexible, as it can handle multiple messages at once, depending on the configuration (it has a multiple parameter).
+        - The basicNack method is often preferred for scenarios where you want to reject multiple messages simultaneously.
+        - When used with requeue=true, it behaves similarly to basicReject, putting the message(s) back into the queue for redelivery.
+
+________________________________________________________________________________________________________________________
+
+*   What are lazy queues ?
+
+>>  Lazy Queues in RabbitMQ are such a queue which optimize memory usage by storing messages on disk instead of in memory.
+
+    This feature is particularly useful for handling high volumes of messages, preventing memory exhaustion and maintaining
+    performance.
+
+    Lazy queues are ideal for scenarios with sporadic message processing or bursts of messages, ensuring that larger
+    volumes can be managed efficiently.
+
+    While lazy queues help with memory usage, they may have slightly higher latency for message processing since messages
+    are read from disk rather than memory.
+
+    Stream and quorum queues do not support lazy loading.
+
+    ```
+        @Bean
+        public Queue lazyQueue() {
+            Map<String, Object> args = new HashMap<>();
+            args.put("x-queue-type", "classic");
+            args.put("x-lazy", true); // Specify that this is a lazy queue
+            return new Queue("lazy.queue", true, false, false, args);
+        }
+    ```
+
+________________________________________________________________________________________________________________________
+
+*   What is Prefetch in RabbitMQ ?
+
+>>  In RabbitMQ, prefetch controls the number of messages a consumer can receive before acknowledging a previously received message.
+    This is a vital setting for managing message flow, especially in high-throughput systems where consumers need to
+    balance processing load and avoid being overwhelmed.
+
+    Key Points About Prefetch
+    What it Does: Prefetch defines how many unacknowledged messages a consumer can hold at once. By limiting prefetch, you can prevent a single consumer from monopolizing message delivery, ensuring fair distribution among consumers.
+
+    Where It's Useful: If a consumer processes messages slowly, setting a lower prefetch (e.g., 1 or 10) allows it to receive fewer messages at a time, reducing memory usage and avoiding message congestion. This is helpful in scenarios where processing time varies significantly or is intensive.
+
+    Example:
+
+    If prefetch=1, RabbitMQ will deliver one message at a time to the consumer and wait until it acknowledges that message before sending another.
+    If prefetch=10, RabbitMQ can send up to 10 unacknowledged messages to the consumer at once, allowing it to process in batches.
+    Benefits:
+
+    Fair Load Distribution: Prevents fast consumers from overloading slower ones.
+    Back Pressure Management: Helps in managing resource consumption by reducing unacknowledged message count.
+    Optimized Throughput: Suitable for batch processing by adjusting the prefetch count based on message processing speed and system resources.
+    You can configure prefetch settings in Spring applications using spring.rabbitmq.listener.simple.prefetch for the "simple" listener container.
