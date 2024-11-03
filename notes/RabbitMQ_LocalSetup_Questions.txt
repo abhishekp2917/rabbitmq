@@ -1,0 +1,138 @@
+*   What are the Environment variables that needs to be defined for RabbitMQ setup ?
+
+>>  (1) ERLANG_HOME = C:\Program Files\Erlang OTP
+
+        - Specifies the installation directory for the Erlang runtime.
+        - RabbitMQ is built on Erlang, so this runtime is essential for RabbitMQ’s operation.
+        - Setting this allows RabbitMQ to locate the Erlang binaries needed to run.
+
+    (2) RABBITMQ_HOME = C:\Program Files\RabbitMQ Server\rabbitmq_server-3.13.5\
+
+        - Points to the RabbitMQ installation directory where you have installed RMQ.
+        - Essential for RabbitMQ tools (like rabbitmqctl) to locate configuration and executable files.
+        - Helps in organizing all RabbitMQ-related files in a single, accessible path.
+
+    (3) RABBITMQ_ADVANCED_CONFIG_FILE (optional) = %RABBITMQ_HOME%\advanced.config
+
+        - Specifies the path for the advanced.config file, which allows advanced configuration.
+        - Used for features like specific plugin setups or customized logging.
+        - Optional but useful for more complex, production-level setups.
+
+    (4) RABBITMQ_CONFIG_FILE (optional) = %RABBITMQ_HOME%\config\rabbitmq
+
+        - Points to the rabbitmq.conf file, RabbitMQ’s main configuration file.
+        - Controls standard configurations such as networking, user permissions, and resource limits.
+        - Essential when you need to customize basic settings beyond defaults.
+
+    (5) RABBITMQ_DIST_PORT = 25672
+
+        - Defines the port for inter-node communication and CLI commands in RabbitMQ clusters.
+        - Default is 25672, but can be customized if this port is in use.
+        - Critical for clustering setups, as it helps nodes communicate internally.
+
+    (6) RABBITMQ_ENABLED_PLUGINS_FILE = %RABBITMQ_HOME%\enabled_plugins
+
+        - Specifies the file listing enabled plugins (e.g., management, monitoring).
+        - Helps RabbitMQ know which additional functionalities to load at startup.
+        - Essential when using plugins for features like HTTP API access and message tracing.
+
+    (7) RABBITMQ_LOG_BASE (optional) = %RABBITMQ_HOME%\Logs
+
+        - Sets the base directory for RabbitMQ log files.
+        - Helps in separating log data from application data, making maintenance easier.
+        - Essential in environments where log management is critical for monitoring and debugging.
+
+    (8) RABBITMQ_MNESIA_BASE = %RABBITMQ_HOME%\Mnesia
+
+        - Directory where RabbitMQ stores Mnesia database files (used for metadata).
+        - Mnesia holds info on queues, exchanges, users, and other RabbitMQ state data.
+        - Critical for RabbitMQ to function, as it relies on this storage for persistent data.
+
+    (9) RABBITMQ_MNESIA_DIR (optional) = %RABBITMQ_HOME%\Mnesia\data
+
+        - Points to a specific directory for Mnesia database files, often a subfolder of Mnesia_base.
+        - Useful for separating or organizing different types of Mnesia data.
+        - Often used in advanced setups with custom data directories.
+
+    (10) RABBITMQ_NODENAME = rabbit1@localhost
+
+        - Defines the unique identifier of the RabbitMQ node (e.g., rabbit@localhost).
+        - The '@hostname' part in RABBITMQ_NODENAME is required in RabbitMQ for clustering purposes because it specifies
+          the domain or network context in which the node resides.
+        - Apart from hostname, one case use IP address as well (e.g., rabbit@192.168.1.10)
+        - Allows custom node names, which can simplify monitoring and management.
+
+
+    (11) RABBITMQ_NODE_PORT = 5672
+
+        - Specifies the port for AMQP connections, which is 5672 by default.
+        - This is the main port that clients connect to for messaging.
+        - Can be customized to avoid conflicts with other services on the same port.
+
+    (12) Path = %ERLANG_HOME%\bin;%RABBITMQ_HOME%\Sbin
+
+        - Adds Erlang and RabbitMQ binaries to the system path for command-line access.
+        - Makes erl, rabbitmqctl, and other commands available directly in the terminal.
+        - Ensures smooth running of commands without specifying full paths.
+
+    Note :  Files or Directory mentioned in the Environment Variables must exist. In case they are absent, RabbitMQ might
+            fail to start.
+________________________________________________________________________________________________________________________
+
+*   How to run RabbitMQ as a Windows service ?
+
+>>  Once the environment variables are configured, run below commands to run and stop RabbitMQ as Windows service.
+
+    (1) Install:
+
+        ```
+            rabbitmq-service install
+        ```
+
+    (2) Start:
+
+        ```
+            rabbitmq-service start
+        ```
+    (3) Verify:
+
+        ```
+            rabbitmq-service status
+        ```
+
+    (4) Stop:
+
+        ```
+            rabbitmq-service stop
+        ```
+________________________________________________________________________________________________________________________
+
+*   How to enable various RabbitMQ plugins ?
+
+>>  Once the environment variables are configured, run below commands to enable and disable RabbitMQ plugins.
+
+    (1) Enable:
+
+        ```
+            rabbitmq-plugins enable <plugin_name>
+        ```
+
+    (2) Verify enabled plugins:
+
+        ```
+            rabbitmq-plugins list
+        ```
+
+    (3) Disable:
+
+        ```
+            rabbitmq-plugins disable <plugin_name>
+        ```
+
+    (4) 3rd Party plugins:
+
+        - Download the plugins with '.ez' extension (for e.g., rabbitmq_custom_plugin.ez) and place it in the RabbitMQ
+          plugins directory i.e. '%RABBITMQ_HOME%\plugins'
+
+        - Enable the plugin using enabling command in which plugin name will be the name of the file with ''.ez' extension.
+________________________________________________________________________________________________________________________

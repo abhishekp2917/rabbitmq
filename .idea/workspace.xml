@@ -5,49 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af7a5c4b-6729-428e-9e64-3dd453339f76" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/RMQApplication2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notes/RabbitMQ_Streams_Questions.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/advance/prefetch/PrefetchBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/basic/PriorityQueueBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/transactions/TransactionsBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/stream/BasicStreamBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Stream.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/advance/prefetch/AudioController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/PriorityQueueController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/handlingError/transactions/VideoController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/JsonMessageStreamController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/TextMessageStreamController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Audio.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Video.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/advance/prefetch/AudioCompressionConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/advance/prefetch/AudioEncodingConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/basic/PriorityQueueMessageConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/advance/prefetch/AudioProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/basic/PriorityQueueMessageProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/handlingError/transactions/VideoProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/JsonMessageStreamProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/TextMessageStreamProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/RabbitMQ_LocalSetup_Questions.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Acknowledgements_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Acknowledgements_Questions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Advance_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Advance_Questions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Questions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/BeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/BeanConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/deadLetterExchange/DeadLetterExchangeBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/deadLetterExchange/DeadLetterExchangeBeanConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/retryMechanism/RetryMechanismBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/retryMechanism/RetryMechanismBeanConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/JsonMessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/TextMessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Booking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Encoding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Encoding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/FNOLClaim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/FNOLClaim.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Media.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Payment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +47,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/RabbitMQ/src/main/java/org/example/service/producer",
+    "last_opened_file_path": "C:/RabbitMQ/notes",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.43218392",
@@ -97,11 +56,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\RabbitMQ\notes" />
       <recent name="C:\RabbitMQ\src\main\java\org\example\service\producer" />
       <recent name="C:\RabbitMQ\src\main\java\org\example\service\consumer" />
       <recent name="C:\RabbitMQ\src\main\java\org\example\controller" />
       <recent name="C:\RabbitMQ\src\main\java\org\example\controller\handlingError" />
-      <recent name="C:\RabbitMQ\src\main\java\org\example\service\producer\handlingError" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.example.controller.stream" />
