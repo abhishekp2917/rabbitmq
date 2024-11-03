@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
-@RequestMapping("/employee")
-public class EmployeeController {
+@RequestMapping("/message/json")
+public class JsonMessageController {
 
     @Autowired
     private JsonMessageProducer jsonMessageProducer;

@@ -1,0 +1,54 @@
+*   What are Streams in Rabbit MQ ?
+
+>>  RabbitMQ Streams is a feature introduced in RabbitMQ to handle large volumes of messages in a more efficient and
+    scalable way than traditional queues.
+
+    Unlike regular RabbitMQ queues, which store messages in memory or on disk with limitations on size and persistence,
+    streams allow continuous, durable storage of message data and deliver messages in a log-like structure that can be
+    replayed by consumers.
+
+    Key Features of RabbitMQ Streams
+
+    (1) High Throughput and Low Latency:
+
+        Streams can handle millions of messages per second with very low latency, thanks to optimized data structures
+        and storage mechanisms.
+
+    (2) Log-Based Message Storage:
+
+        Messages in a stream are stored in a log format, where each message has an offset, similar to systems like Apache
+        Kafka.
+
+        Consumers can read messages from any point in the stream, making it suitable for replaying historical data or
+        consuming from the latest messages.
+
+    (3) Persistent Storage:
+
+        Streams offer durable storage where messages are retained even after they are consumed.
+
+        This allows consumers to reconnect and replay messages as needed.
+
+    Advanced Consumer Features:
+
+    (1) Offset Management:
+
+        Consumers can specify the offset to start reading messages, allowing for flexible data processing.
+
+    (2) Single Active Consumer (SAC) Support:
+
+        Ensures only one consumer reads from the stream at a time, useful for ordered processing and failover scenarios.
+
+    (3) Partitioning and Scaling:
+
+        Stream queues support partitioning, allowing multiple consumers to process different partitions of a single
+        stream in parallel. This enables horizontal scaling for high-demand applications.
+
+    (4) Efficient Data Retrieval:
+
+        Consumers can consume messages by "streaming" them rather than "queuing" them, allowing efficient, real-time
+        data processing without the overhead associated with traditional message queuing.
+________________________________________________________________________________________________________________________
+
+*   How to use Streams in Rabbit MQ ?
+
+>>

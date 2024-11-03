@@ -6,6 +6,8 @@ public final class Queue {
         throw new UnsupportedOperationException("This is a constants class and cannot be instantiated");
     }
 
+    public static final String Q_AUDIO_ENCODING = "q.audio.encoding";
+    public static final String Q_AUDIO_COMPRESSION = "q.audio.compression";
     public static final String Q_BOOKING_EVENTS = "q.booking.events";
     public static final String Q_BOOKING_JOURNEY = "q.booking.journey";
     public static final String Q_CLAIM_ESCALATED = "q.claim.escalated";
@@ -26,4 +28,6 @@ public final class Queue {
     public static final String Q_PAYMENT_CREDIT_CARD_DEAD = "q.payment.creditCard.dead";
     public static final String Q_PAYMENT_CREDIT_CARD_WAIT = "q.payment.creditCard.wait";
     public static final String Q_TRANSACTION_PURCHASE = "q.transaction.purchase";
+    public static final String Q_VIDEO_ENCODING_720P = "q.video.encoding.720p";
+    public static final String Q_PRIORITY_MESSAGE = "q.priority.message";
 }

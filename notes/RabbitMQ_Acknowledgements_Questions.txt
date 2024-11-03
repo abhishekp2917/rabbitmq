@@ -164,9 +164,15 @@ ________________________________________________________________________________
     (2) Set 'ConfirmCallback' of RabbitTemplate by overriding 'confirm()' method of ConfirmCallback which will have implementation
         of handling Ack and Nack.
 
+        Make sure to annotate the method with @PostConstruct so that spring will execute this method once RabbitTemplate
+        object is being created.
+
         ```
             @Autowired
-            public BeanConfig(RabbitTemplate rabbitTemplate) {
+            private RabbitTemplate rabbitTemplate;
+
+            @PostConstruct
+            public void configurePublisherConfirms() {
                 rabbitTemplate.setConfirmCallback((CorrelationData correlationData, boolean ack, String cause) -> {
                     if (ack) {
                         System.out.println("Message acknowledged by broker with ID: " + ((correlationData!=null)?correlationData.getId():-1));
@@ -188,5 +194,66 @@ ________________________________________________________________________________
 
     How to use Transactions for data reliability in Spring:
 
+    (1) Make sure publisher confirms is not enabled. This property shouldn't be present in application.properties file
 
+        ```
+            spring.rabbitmq.publisher-confirm-type=correlated
+        ```
+
+    (2) Since transaction can only be possible through Channel, publish the message using Channel object.
+
+        Publish the message after channel.txSelect() and once published successfully, commit the transaction using
+        channel.txCommit().
+
+        In case of any exception/failure, rollback the transaction inside catch block using channel.txRollback().
+
+        ```
+            public boolean publishVideos(String exchangeName, String routingKey, List<Video> videos) {
+                ConnectionFactory connectionFactory = rabbitTemplate.getConnectionFactory();
+                if(connectionFactory instanceof CachingConnectionFactory) {
+                    try(Connection connection = ((CachingConnectionFactory)connectionFactory).createConnection()) {
+                        Channel channel = connection.createChannel(true);
+                        channel.txSelect();
+                        try {
+                            Map<String, Object> messageHeaders = new HashMap<>();
+                            messageHeaders.put("user", "Abhishek");
+                            AMQP.BasicProperties basicProperties = new AMQP.BasicProperties.Builder()
+                                    .headers(messageHeaders)
+                                    .deliveryMode(MessageDeliveryMode.toInt(MessageDeliveryMode.PERSISTENT))
+                                    .priority(1)
+                                    .contentEncoding(StandardCharsets.UTF_8.toString())
+                                    .contentType(MessageProperties.CONTENT_TYPE_JSON)
+                                    .build();
+                            MessageProperties messageProperties = new MessageProperties();
+                            messageProperties.setHeaders(messageHeaders);
+                            videos.forEach(video -> {
+                                if(video.getVideoSizeInMB()<=500) {
+                                    Message message = rabbitTemplate.getMessageConverter().toMessage(video, messageProperties);
+                                    try {
+                                        channel.basicPublish(exchangeName, routingKey, basicProperties, message.getBody());
+                                    } catch (IOException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                }
+                                else throw new UnsupportedOperationException("Video size is too long");
+                            });
+                            channel.txCommit();
+                            System.out.println("All the videos published successfully");
+                        }
+                        catch (Exception ex) {
+                            channel.txRollback();
+                            System.out.println("Failed to publish the videos. Transaction roll backed successfully");
+                            return false;
+                        }
+                    }
+                    catch (IOException ex) {
+                        System.out.println("Connection couldn't be established");
+                        return false;
+                    }
+                    return true;
+                }
+                else return false;
+            }
+        ```
+________________________________________________________________________________________________________________________
 

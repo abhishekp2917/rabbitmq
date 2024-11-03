@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 @ToString
 public class Employee {
 
-    public long employeeId;
-    public String firstName;
-    public String lastName;
-    public LocalDateTime dob;
+    private long employeeId;
+    private String firstName;
+    private String lastName;
+    private LocalDateTime dob;
 }

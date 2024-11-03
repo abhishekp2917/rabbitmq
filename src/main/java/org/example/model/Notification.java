@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class Notification {
 
-    public long notificationId;
-    public long userId;
-    public String description;
+    private long notificationId;
+    private long userId;
+    private String description;
 }

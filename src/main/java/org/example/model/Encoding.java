@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class Encoding {
 
-    public long encodingId;
-    public String mediaType;
-    public double fileSizeInMB;
+    private long encodingId;
+    private String mediaType;
+    private double fileSizeInMB;
 }

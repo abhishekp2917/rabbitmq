@@ -9,9 +9,9 @@ import lombok.ToString;
 @ToString
 public class Payment {
 
-    public long paymentId;
-    public long payeeId;
-    public long receiverId;
-    public String paymentMethod;
-    public double amount;
+    private long paymentId;
+    private long payeeId;
+    private long receiverId;
+    private String paymentMethod;
+    private double amount;
 }

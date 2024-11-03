@@ -7,9 +7,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Order {
+public class Audio {
 
-    private long orderId;
-    private long userId;
-    private String[] products;
+    private long audioId;
+    private String audioType;
+    private double audioSizeInMB;
 }

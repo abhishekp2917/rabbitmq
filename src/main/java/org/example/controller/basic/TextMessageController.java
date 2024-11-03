@@ -8,8 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController()
-@RequestMapping("/message")
-public class MessageController {
+@RequestMapping("/message/text")
+public class TextMessageController {
 
     @Autowired
     private TextMessageProducer textMessageProducer;

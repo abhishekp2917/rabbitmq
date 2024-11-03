@@ -1,5 +1,6 @@
 package org.example.config.handlingError.deadLetterExchange;
 
+import org.example.constants.QueueType;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -15,7 +16,7 @@ public class DeadLetterExchangeBeanConfig {
     @Bean
     public Queue videoEncodingQueue() {
         Map<String, Object> args = new HashMap<>();
-        args.put("x-queue-type", "classic");
+        args.put("x-queue-type", QueueType.CLASSIC);
         args.put("x-dead-letter-exchange", "x.encoding.dlx");
         args.put("x-message-ttl", 10000);
         return new Queue("q.encoding.video", true, false, false, args);
@@ -24,7 +25,7 @@ public class DeadLetterExchangeBeanConfig {
     @Bean
     public Queue videoEncodingDLXQueue() {
         Map<String, Object> args = new HashMap<>();
-        args.put("x-queue-type", "classic");
+        args.put("x-queue-type", QueueType.CLASSIC);
         return new Queue("q.encoding.video.dlx", true, false, false, args);
     }
 

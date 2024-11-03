@@ -1,5 +1,6 @@
 package org.example.config.handlingError.retryMechanism;
 
+import org.example.constants.QueueType;
 import org.example.util.handlingError.retryMechanism.DLXErrorHandlingProcessor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -16,7 +17,7 @@ public class RetryMechanismBeanConfig {
     @Bean
     public Queue creditCardPaymentQueue() {
         Map<String, Object> args = new HashMap<>();
-        args.put("x-queue-type", "classic");
+        args.put("x-queue-type", QueueType.CLASSIC);
         args.put("x-dead-letter-exchange", "x.payment.wait");
         return new Queue("q.payment.creditCard", true, false, false, args);
     }
@@ -24,7 +25,7 @@ public class RetryMechanismBeanConfig {
     @Bean
     public Queue creditCardPaymentWaitDLXQueue() {
         Map<String, Object> args = new HashMap<>();
-        args.put("x-queue-type", "classic");
+        args.put("x-queue-type", QueueType.CLASSIC);
         args.put("x-lazy", true);
         args.put("x-dead-letter-exchange", "x.payment");
         args.put("x-message-ttl", 10000);
@@ -34,7 +35,7 @@ public class RetryMechanismBeanConfig {
     @Bean
     public Queue creditCardPaymentDeadQueue() {
         Map<String, Object> args = new HashMap<>();
-        args.put("x-queue-type", "classic");
+        args.put("x-queue-type", QueueType.CLASSIC);
         return new Queue("q.payment.creditCard.dead", true, false, false, args);
     }
 

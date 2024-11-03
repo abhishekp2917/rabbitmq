@@ -5,77 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af7a5c4b-6729-428e-9e64-3dd453339f76" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/notes/RabbitMQ_Acknowledgements_Questions.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notes/RabbitMQ_Advance_Questions.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/notes/RabbitMQ_Exchanges_Questions.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/advance/multipleMessageTypes/TransactionBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/advance/scheduling/ScheduleConsumerBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/deadLetterExchange/DeadLetterExchangeBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/retryMechanism/RetryMechanismBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/ConsumerAcknowledgementMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/ExchangeType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/QueueType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/advance/multipleMessageTypes/TransactionController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/advance/scheduling/MediaController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/handlingError/deadLetterExchange/EncodingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/handlingError/retryMechanism/PaymentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Encoding.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Media.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Payment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/advance/multipleMessageTypes/PurchaseTransactionConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/advance/scheduling/MediaUploadAWSConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/advance/scheduling/MediaUploadAzureConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/advance/scheduling/MediaUploadGCPConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/direct/EventBookingConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/direct/JourneyBookingConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/fanout/NotificationConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/fanout/PaymentConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/headers/EscalatedFNOLClaimConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/headers/NormalFNOLClaimConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/topic/OtpNotificationConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/topic/PaymentNotificationConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/topic/SubscriberNotificationConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/handlingError/deadLetterExchange/VideoEncodingConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/handlingError/deadLetterExchange/VideoEncodingDLXConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/handlingError/retryMechanism/CreditCardPaymentConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/handlingError/retryMechanism/CreditCardPaymentDeadConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/advance/multipleMessageTypes/TransactionProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/advance/scheduling/MediaProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/handlingError/deadLetterExchange/EncodingProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/handlingError/retryMechanism/PaymentProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/util/handlingError/retryMechanism/DLXErrorHandlingProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/util/handlingError/retryMechanism/RabbitMQHeader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/util/handlingError/retryMechanism/RabbitMQHeaderXDeath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations/RMQApplication2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notes/RabbitMQ_Streams_Questions.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/advance/prefetch/PrefetchBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/basic/PriorityQueueBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/transactions/TransactionsBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/stream/BasicStreamBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Stream.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/advance/prefetch/AudioController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/PriorityQueueController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/handlingError/transactions/VideoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/JsonMessageStreamController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/TextMessageStreamController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Audio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Video.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/advance/prefetch/AudioCompressionConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/advance/prefetch/AudioEncodingConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/basic/PriorityQueueMessageConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/advance/prefetch/AudioProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/basic/PriorityQueueMessageProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/handlingError/transactions/VideoProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/JsonMessageStreamProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/TextMessageStreamProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Acknowledgements_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Acknowledgements_Questions.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Advance_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Advance_Questions.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Questions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RMQApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RMQApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/BeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/BeanConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/basic/JsonMessageConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/basic/JsonMessageConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/basic/TextMessageConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/basic/TextMessageConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/direct/OtpNotificationConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/direct/PaymentNotificationConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/direct/SubscriberNotificationConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/fanout/NotificationConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/fanout/PaymentConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/headers/EscalatedFNOLClaimConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/headers/NormalFNOLClaimConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/topic/EventBookingConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/consumer/exchange/topic/JourneyBookingConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/EmployeeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/MessageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/direct/BookingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/direct/BookingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/fanout/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/fanout/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/headers/FNOLClaimController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/headers/FNOLClaimController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/topic/NotificationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/topic/NotificationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/producer/basic/JsonMessageProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/basic/JsonMessageProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/producer/basic/TextMessageProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/basic/TextMessageProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/producer/exchange/direct/BookingProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/exchange/direct/BookingProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/producer/exchange/fanout/OrderProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/exchange/fanout/OrderProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/producer/exchange/headers/FNOLClaimProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/exchange/headers/FNOLClaimProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/producer/exchange/topic/NotificationProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/exchange/topic/NotificationProducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/deadLetterExchange/DeadLetterExchangeBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/deadLetterExchange/DeadLetterExchangeBeanConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/retryMechanism/RetryMechanismBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/handlingError/retryMechanism/RetryMechanismBeanConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/EmployeeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/JsonMessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/MessageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/basic/TextMessageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Booking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Booking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Encoding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Encoding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/FNOLClaim.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/FNOLClaim.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Media.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Media.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Notification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Payment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -93,6 +64,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -114,7 +88,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/RabbitMQ/src/main/java/org/example/controller/advance",
+    "last_opened_file_path": "C:/RabbitMQ/src/main/java/org/example/service/producer",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.43218392",
@@ -123,21 +97,21 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\RabbitMQ\src\main\java\org\example\controller\advance" />
-      <recent name="C:\RabbitMQ\src\main\java\org\example\service\consumer\advance" />
-      <recent name="C:\RabbitMQ\src\main\java\org\example\service\producer\advance" />
-      <recent name="C:\RabbitMQ\src\main\java\org\example\producer\advance" />
-      <recent name="C:\RabbitMQ\src\main\java\org\example\consumer\advance" />
+      <recent name="C:\RabbitMQ\src\main\java\org\example\service\producer" />
+      <recent name="C:\RabbitMQ\src\main\java\org\example\service\consumer" />
+      <recent name="C:\RabbitMQ\src\main\java\org\example\controller" />
+      <recent name="C:\RabbitMQ\src\main\java\org\example\controller\handlingError" />
+      <recent name="C:\RabbitMQ\src\main\java\org\example\service\producer\handlingError" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.example.controller.advance.multipleMessageTypes" />
-      <recent name="org.example.service.consumer.advance.multipleMessageTypes" />
-      <recent name="org.example.service.producer.advance.multipleMessageTypes" />
-      <recent name="org.example.config.advance.multipleMessageTypes" />
-      <recent name="org.example.consumer.advance.scheduling" />
+      <recent name="org.example.controller.stream" />
+      <recent name="org.example.service.producer.stream" />
+      <recent name="org.example.config.stream" />
+      <recent name="org.example.constants" />
+      <recent name="org.example.service.consumer.advance.prefetch" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.RMQApplication2">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="SpringCloudAPIGateway" />
       <method v="2">
@@ -151,6 +125,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.RMQApplication1" />
+      <item itemvalue="Application.RMQApplication2" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

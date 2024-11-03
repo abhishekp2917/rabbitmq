@@ -194,3 +194,123 @@ ________________________________________________________________________________
         }
     ```
 ________________________________________________________________________________________________________________________
+
+*   What is Single Active Consumer ?
+
+>>  Single Active Consumer (SAC) is a feature that designates only one active consumer at a time from a group of consumers
+    connected to a queue.
+
+    If there are multiple consumers, RabbitMQ ensures that only one of them receives messages while the others remain idle,
+    ready to take over if the active consumer disconnects or stops consuming.
+
+    How to enable SAC in RabbitMQ:
+
+    (1) The queue must have the 'x-single-active-consumer' argument set to true when it’s declared.
+
+        ```
+            @Bean
+            public Queue singleActiveConsumerQueue() {
+                Map<String, Object> args = new HashMap<>();
+                args.put("x-queue-type", "classic");
+                args.put("x-single-active-consumer", true);
+                return new Queue("q.sac", true, false, false, args);
+            }
+        ```
+
+    (2) If the active consumer disconnects, RabbitMQ will automatically activate another consumer from the group.
+
+________________________________________________________________________________________________________________________
+
+*   How SAC works on stream queues ?
+
+>>  Similar to classic queues, with stream queues, SAC ensures that only one active consumer is consuming messages from
+    the stream at any given time, while other consumers are idle and ready to take over if needed.
+
+    Stream queues allow consumers to specify an offset (like in Kafka) to start consuming messages from a specific point
+    in the stream. However, with SAC, the active consumer will always consume messages starting from the most recent offset,
+    providing consistency in where message processing resumes if a consumer fails and another takes over.
+
+    ```
+        @Bean
+        public Queue singleActiveConsumerStreamQueue() {
+            Map<String, Object> args = new HashMap<>();
+            args.put("x-queue-type", "stream");
+            args.put("x-single-active-consumer", true);
+            return new Queue("s.sac", true, false, false, args);
+        }
+    ```
+________________________________________________________________________________________________________________________
+
+*   What is Prefetch in RabbitMQ ?
+
+>>  In RabbitMQ, prefetch controls the number of messages a consumer is assigned before finish processing or acknowledging
+    a previously received message.
+
+    This is a vital setting for managing message flow, especially in high-throughput systems where consumers need to
+    balance processing load and avoid being overwhelmed.
+
+    By default, prefetch count is 250.
+
+    Example:
+
+        Let say prefetch count is set to default i.e. 250
+
+        If there are 500 messages in a queue and there are initially 2 consumers, then both the queue will prefetch 250-250
+        messages.
+
+        In case we add one more consumer, then even if there are some messages left unprocessed from the initial 500
+        messages, this new consumer will not get any of them since all of them are prefetched by other two queues.
+
+    You can configure prefetch count as below. This prefetch count will be effective to all the consume within that
+    application instance.
+
+    ```
+        spring.rabbitmq.listener.simple.prefetch=10
+    ```
+________________________________________________________________________________________________________________________
+
+*   How to configure different prefetch count within same application instance ?
+
+>>  Follow below steps to configure different prefetch count for each listener:
+
+    (1) Create a bean of RabbitListenerContainerFactory and set the Prefetch count
+        ```
+            @Bean
+            public RabbitListenerContainerFactory<SimpleMessageListenerContainer> getAudioCompressionQueueContainerFactory(
+                    SimpleRabbitListenerContainerFactoryConfigurer configurer,
+                    ConnectionFactory connectionFactory
+            ) {
+                var factory = new SimpleRabbitListenerContainerFactory();
+                configurer.configure(factory, connectionFactory);
+                factory.setPrefetchCount(10);
+                return factory;
+            }
+        ```
+    (2) Configure this bean of RabbitListenerContainerFactory to @RabbitListener whose prefetch count you want to set.
+
+        ```
+            @RabbitListener(
+                    id = org.example.constants.Queue.Q_AUDIO_COMPRESSION,
+                    containerFactory = "getAudioCompressionQueueContainerFactory",
+                    ackMode = ConsumerAcknowledgementMode.AUTO,
+                    concurrency = "2",
+                    bindings = @QueueBinding(
+                            value = @Queue(
+                                    value = org.example.constants.Queue.Q_AUDIO_COMPRESSION,
+                                    durable = "true",
+                                    exclusive = "false",
+                                    autoDelete = "false",
+                                    arguments = {
+                                            @Argument(name = "x-queue-type", value = QueueType.CLASSIC)
+                                    }),
+                            exchange = @Exchange(value = org.example.constants.Exchange.X_AUDIO, type = ExchangeType.FANOUT, durable = "true", autoDelete = "false")
+                    )
+            )
+            public void listenAudioCompression(Audio audio) throws InterruptedException {
+                Thread.sleep(10000);
+                System.out.println(String.format("Queue : %s, Audio : %s", org.example.constants.Queue.Q_AUDIO_COMPRESSION, audio));
+            }
+        ```
+________________________________________________________________________________________________________________________
+
+

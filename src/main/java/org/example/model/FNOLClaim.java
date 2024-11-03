@@ -9,12 +9,12 @@ import lombok.ToString;
 @ToString
 public class FNOLClaim {
 
-    public long claimId;
-    public String policyNumber;
-    public String claimType;
-    public String damageDescription;
-    public Boolean damage;
-    public Boolean livable;
-    public Boolean fatal;
+    private long claimId;
+    private String policyNumber;
+    private String claimType;
+    private String damageDescription;
+    private Boolean damage;
+    private Boolean livable;
+    private Boolean fatal;
 }
 

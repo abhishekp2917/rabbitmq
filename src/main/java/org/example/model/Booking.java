@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 public class Booking {
 
-    public long bookingId;
-    public long userId;
-    public String bookingType;
-    public double price;
+    private long bookingId;
+    private long userId;
+    private String bookingType;
+    private double price;
 }

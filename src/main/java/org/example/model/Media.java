@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 public class Media {
 
-    public long mediaId;
-    public String mediaType;
-    public double fileSizeInMB;
-    public String mediaPath;
+    private long mediaId;
+    private String mediaType;
+    private double fileSizeInMB;
+    private String mediaPath;
 }

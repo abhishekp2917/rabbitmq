@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="RMQApplication2" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="org.example.RMQApplication" />
+    <module name="RabbitMQ" />
+    <selectedOptions>
+      <option name="environmentVariables" visible="false" />
+    </selectedOptions>
+    <option name="VM_PARAMETERS" value="-DPORT=1002" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
