@@ -1,11 +1,12 @@
-package org.example.controller.stream;
+package org.example.controller.stream.basic;
 
 import org.example.model.Employee;
-import org.example.service.producer.stream.JsonMessageStreamProducer;
+import org.example.service.producer.stream.basic.JsonMessageStreamProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController()
 @RequestMapping("/stream/message/json")
@@ -19,9 +20,9 @@ public class JsonMessageStreamController {
         return "Active";
     }
     @PostMapping("/publish")
-    public ResponseEntity<String> publishTextMessageToRMQStream(@RequestBody Employee employee) {
+    public ResponseEntity<String> publishTextMessageToRMQStream(@RequestBody List<Employee> employees) {
         try {
-            jsonMessageStreamProducer.publishJsonMessage(employee);
+            jsonMessageStreamProducer.publishJsonMessage(employees);
             return new ResponseEntity<>("Employee published to Stream successfully", HttpStatus.CREATED);
         }
         catch (Exception ex) {

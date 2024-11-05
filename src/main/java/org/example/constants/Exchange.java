@@ -16,6 +16,7 @@ public final class Exchange {
     public static final String X_PAYMENT = "x.payment";
     public static final String X_PAYMENT_DEAD = "x.payment.dead";
     public static final String X_PAYMENT_WAIT = "x.payment.wait";
+    public static final String X_STREAM_VIDEO = "x.stream.video";
     public static final String X_TRANSACTION = "x.transaction";
     public static final String X_VIDEO = "x.video";
 }

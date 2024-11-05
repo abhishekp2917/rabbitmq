@@ -49,6 +49,176 @@
         data processing without the overhead associated with traditional message queuing.
 ________________________________________________________________________________________________________________________
 
-*   How to use Streams in Rabbit MQ ?
+*   How to use publish messages to Streams in Rabbit MQ ?
+
+>>  Follow below steps to publish messages to Streams:
+
+    (1) Enable Stream plugin by running below command:
+
+        ```
+            rabbitmq-plugins enable rabbitmq_stream
+        ```
+
+    (2) Create Queue of type stream
+
+        ```
+            @Bean
+            public Queue textMessageStream() {
+                Map<String, Object> args = new HashMap<>();
+                args.put("x-queue-type", "stream");
+                return new Queue("<stream_name>", true, false, false, args);
+            }
+        ```
+
+    (3) Create bean of 'RabbitStreamTemplate' for each stream to publish message to that particular stream.
+
+        Annotate the method with @Qualifier to distinguish 'RabbitStreamTemplate' beans of each stream
+
+        ```
+            @Bean
+            @Qualifier("<stream_name>")
+            public RabbitStreamTemplate getTextMessageRabbitStreamTemplate(Environment environment) {
+                return new RabbitStreamTemplate(environment, "<stream_name>");
+            }
+        ```
+
+    (4) To publish Json message to stream, configure the message convertor as 'Jackson2JsonMessageConverter' to
+        'RabbitStreamTemplate' while creating it's bean
+
+        ```
+            @Bean
+            @Qualifier("<stream_name>")
+            public RabbitStreamTemplate getJsonMessageRabbitStreamTemplate(Environment environment, Jackson2JsonMessageConverter jackson2JsonMessageConverter) {
+                var rabbitStreamTemplate = new RabbitStreamTemplate(environment, "<stream_name>");
+                rabbitStreamTemplate.setMessageConverter(jackson2JsonMessageConverter);
+                return rabbitStreamTemplate;
+            }
+        ```
+
+    (5) Publish the messages to the stream using 'RabbitStreamTemplate'
+
+        ```
+            @Autowired
+            @Qualifier("<Stream_name>")
+            private RabbitStreamTemplate rabbitStreamTemplate;
+
+            public void publishTextMessage(List<String> textMessages) {
+                MessagePostProcessor messagePostProcessor = message -> {
+                    message.getMessageProperties().setHeader("user", "Abhishek");
+                    message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+                    message.getMessageProperties().setPriority(1);
+                    message.getMessageProperties().setContentEncoding(StandardCharsets.UTF_8.toString());
+                    message.getMessageProperties().setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
+                    return message;
+                };
+                textMessages.forEach(textMessage -> rabbitStreamTemplate.convertAndSend(textMessage, messagePostProcessor));
+            }
+        ```
+________________________________________________________________________________________________________________________
+
+*   What are various types of Stream offset in RabbitMQ ?
+
+>>  Here are the various types of offsets supported in RabbitMQ Streams:
+
+    (1) First:
+
+        - Description:
+
+            Starts reading messages from the very beginning of the stream, i.e., the oldest message available which is not
+            consumed yet.
+
+        - Use Case:
+
+            Useful when a new consumer needs to process all past messages in the stream. This is often used when setting
+            up a new consumer to initialize a data cache or for analytics that need a complete history.
+
+    (2) Last:
+
+        - Description:
+
+            Begins reading the last message from the already present messages in the stream. Any new messages added
+            after the consumer starts will be processed, but older messages are ignored except for the last message.
+
+            This is the default offset.
+
+        - Use Case:
+
+            Useful for real-time processing where only new messages are relevant, and there’s no need to process
+            historical data. For instance, monitoring applications may only be interested in the latest events.
+
+    (3) Next(Default):
+
+        - Description:
+
+            Starts reading from the next available message after the last read message by this consumer.
+
+        - Use Case:
+
+            Used when a consumer was previously connected and processed some messages but then disconnected temporarily.
+            Upon reconnecting, it resumes reading from where it left off.
+
+    (4) Absolute Offset:
+
+        - Description:
+
+            Starts from a specific offset number within the stream from already present messages, specified by offsetValue.
+            Any new messages added after the consumer starts will be processed.
+
+        - Use Case:
+
+            Useful for scenarios where a consumer needs to recover from a particular position. For instance, if the
+            consumer previously saved the offset and needs to resume from that exact point.
+
+    (5) Timestamp:
+
+        - Description:
+
+            Begins reading from the first message in the stream that was published after the specified timestamp. Any
+            new messages added after the consumer starts will be processed.
+
+        - Use Case:
+
+            This is beneficial when only messages from a specific time onward are needed. For example, a consumer can
+            start processing from the beginning of the current day or a known event time, ignoring older messages.
+
+    Let's say initially there are five messages published to a stream viz M1, M2, M3, M4 and M5.
+
+    +-------------+-----------------------------------------------+-------------------------------------------+
+    | Offset Type | Scenario 1: Consumer Starts After Producer    | Scenario 2: Consumer Starts Before        |
+    |             | Publishes                                     | Producer Publishes                        |
+    +-------------+-----------------------------------------------+-------------------------------------------+
+    | first()     | Reads all messages from M1 onward             | Reads all messages as they are published  |
+    +-------------+-----------------------------------------------+-------------------------------------------+
+    | last()      | Starts from the last message (M5)             | Reads all messages as they are published  |
+    +-------------+-----------------------------------------------+-------------------------------------------+
+    | next()      | Waits for new messages after connecting       | Reads all messages as they are published  |
+    +-------------+-----------------------------------------------+-------------------------------------------+
+    | offset(n)   | Starts from the nth message (e.g., M4 if n=3) | Reads all messages as they are published  |
+    +-------------+-----------------------------------------------+-------------------------------------------+
+    | timestamp() | Starts from the first message with timestamp  | Starts from the first message with        |
+    |             | ≥ given                                       | timestamp ≥ given                         |
+    +-------------+-----------------------------------------------+-------------------------------------------+
+
+    If another batch of 5 messages viz M6, M7, M8, M9 and M10 are published once consumer started, below is the outcome.
+
+    +-------------+----------------------------------------+-----------------------------------------+
+    | Offset Type | Scenario 1: Producer Published M1-M5   | Scenario 2: Consumer Started Before     |
+    |             | Before Consumer                        | Producer Publishes M1-M5                |
+    +-------------+----------------------------------------+-----------------------------------------+
+    | first()     | Reads M6 to M10                        | Reads M6 to M10                         |
+    +-------------+----------------------------------------+-----------------------------------------+
+    | last()      | Reads M6 to M10                        | Reads M6 to M10                         |
+    +-------------+----------------------------------------+-----------------------------------------+
+    | next()      | Reads M6 to M10                        | Reads M6 to M10                         |
+    +-------------+----------------------------------------+-----------------------------------------+
+    | offset(n)   | Reads M6 to M10                        | Reads M6 to M10                         |
+    +-------------+----------------------------------------+-----------------------------------------+
+    | timestamp() | Reads M6 to M10                        | Reads M6 to M10                         |
+    +-------------+----------------------------------------+-----------------------------------------+
+
+________________________________________________________________________________________________________________________
+
+*   What are Super Streams in Rabbit MQ ?
 
 >>
+________________________________________________________________________________________________________________________

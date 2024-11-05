@@ -1,9 +1,10 @@
-package org.example.config.stream;
+package org.example.config.stream.basic;
 
 import com.rabbitmq.stream.Environment;
 import org.example.constants.QueueType;
 import org.example.constants.Stream;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,14 @@ public class BasicStreamBeanConfig {
     public Queue textMessageStream() {
         Map<String, Object> args = new HashMap<>();
         args.put("x-queue-type", QueueType.STREAM);
-        return new Queue("s.message.text", true, false, false, args);
+        return new Queue(Stream.S_MESSAGE_TEXT, true, false, false, args);
+    }
+
+    @Bean
+    public Queue jsonMessageStream() {
+        Map<String, Object> args = new HashMap<>();
+        args.put("x-queue-type", QueueType.STREAM);
+        return new Queue(Stream.S_MESSAGE_JSON, true, false, false, args);
     }
 
     @Bean
@@ -29,7 +37,9 @@ public class BasicStreamBeanConfig {
 
     @Bean
     @Qualifier(Stream.S_MESSAGE_JSON)
-    public RabbitStreamTemplate getJsonMessageRabbitStreamTemplate(Environment environment) {
-        return new RabbitStreamTemplate(environment, Stream.S_MESSAGE_JSON);
+    public RabbitStreamTemplate getJsonMessageRabbitStreamTemplate(Environment environment, Jackson2JsonMessageConverter jackson2JsonMessageConverter) {
+        var rabbitStreamTemplate = new RabbitStreamTemplate(environment, Stream.S_MESSAGE_JSON);
+        rabbitStreamTemplate.setMessageConverter(jackson2JsonMessageConverter);
+        return rabbitStreamTemplate;
     }
 }
