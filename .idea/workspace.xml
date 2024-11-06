@@ -5,24 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af7a5c4b-6729-428e-9e64-3dd453339f76" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/exchange/consistentHash/ConsistentHashExchangeBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/stream/superStream/SuperStreamBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/consistentHash/MailController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/superStream/PaymentNotificationSuperStreamController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Mail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/consistentHash/MailConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/exchange/consistentHash/MailProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/superStream/PaymentSuperStreamProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Exchanges_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Exchanges_Questions.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Streams_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Streams_Questions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RMQApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RMQApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/stream/offset/VideoStreamBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/stream/offset/VideoStreamBeanConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Consumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Consumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/ExchangeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/ExchangeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Stream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Stream.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
