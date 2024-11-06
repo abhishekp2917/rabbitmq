@@ -10,6 +10,7 @@ public final class Exchange {
     public static final String X_CLAIM = "x.claim";
     public static final String X_ENCODING = "x.encoding";
     public static final String X_ENCODING_DLX = "x.encoding.dlx";
+    public static final String X_MAIL = "x.mail";
     public static final String X_MEDIA = "x.media";
     public static final String X_NOTIFICATION = "x.notification";
     public static final String X_ORDER = "x.order";

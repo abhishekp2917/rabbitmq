@@ -218,6 +218,18 @@ ________________________________________________________________________________
 
 ________________________________________________________________________________________________________________________
 
+*   How many connection does RMQ make by default per client in case of streams ?
+
+>>  In RabbitMQ Streams, even if you create multiple streams, only three main connections are typically
+    required per client:
+
+    (1) Locator Connection: Manages metadata and stream discovery across all streams.
+
+    (2) Producer Connection: Handles message publishing to any configured streams.
+
+    (3) Consumer Connection: Consumes messages, including handling multiple streams or super streams by balancing partitions as needed.
+________________________________________________________________________________________________________________________
+
 *   What are Super Streams in Rabbit MQ ?
 
 >>

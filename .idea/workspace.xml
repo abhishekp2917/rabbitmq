@@ -5,22 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="af7a5c4b-6729-428e-9e64-3dd453339f76" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/stream/offset/VideoStreamBeanConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Consumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/offset/VideoStreamController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/stream/basic/JsonMessageStreamConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/stream/basic/TextMessageStreamConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/stream/offset/VideoEncodingStreamConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/offset/VideoStreamProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/exchange/consistentHash/ConsistentHashExchangeBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/stream/superStream/SuperStreamBeanConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/exchange/consistentHash/MailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/superStream/PaymentNotificationSuperStreamController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Mail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/consumer/exchange/consistentHash/MailConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/exchange/consistentHash/MailProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/superStream/PaymentSuperStreamProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Exchanges_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Exchanges_Questions.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/notes/RabbitMQ_Streams_Questions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/notes/RabbitMQ_Streams_Questions.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/stream/BasicStreamBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/stream/basic/BasicStreamBeanConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RMQApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RMQApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/config/stream/offset/VideoStreamBeanConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/config/stream/offset/VideoStreamBeanConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Consumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Consumer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Exchange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/ExchangeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/ExchangeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Queue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/constants/Stream.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/constants/Stream.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/JsonMessageStreamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/basic/JsonMessageStreamController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/TextMessageStreamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/stream/basic/TextMessageStreamController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/JsonMessageStreamProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/basic/JsonMessageStreamProducer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/TextMessageStreamProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/producer/stream/basic/TextMessageStreamProducer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +63,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "C:/RabbitMQ/src/main/java/org/example/service/producer/stream",
+    "last_opened_file_path": "C:/RabbitMQ/src/main/java/org/example/controller/exchange",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.43218392",
@@ -70,18 +72,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\RabbitMQ\src\main\java\org\example\controller\exchange" />
+      <recent name="C:\RabbitMQ\src\main\java\org\example\service\consumer\exchange" />
+      <recent name="C:\RabbitMQ\src\main\java\org\example\service\producer\exchange" />
+      <recent name="C:\RabbitMQ\src\main\java\org\example\config\exchange\consistentHash" />
       <recent name="C:\RabbitMQ\src\main\java\org\example\service\producer\stream" />
-      <recent name="C:\RabbitMQ\src\main\java\org\example\service\consumer\stream" />
-      <recent name="C:\RabbitMQ\src\main\java\org\example\controller\stream" />
-      <recent name="C:\RabbitMQ\notes" />
-      <recent name="C:\RabbitMQ\src\main\java\org\example\service\producer" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="org.example.service.consumer.stream.offset" />
-      <recent name="org.example.controller.stream.offset" />
-      <recent name="org.example.service.producer.stream.offset" />
-      <recent name="org.example.config.stream.offset" />
-      <recent name="org.example.service.consumer.stream" />
+      <recent name="org.example.controller.exchange.consistentHash" />
+      <recent name="org.example.service.consumer.exchange.consistentHash" />
+      <recent name="org.example.model" />
+      <recent name="org.example.service.producer.exchange.consistentHash" />
+      <recent name="org.example.controller.stream.superStream" />
     </key>
   </component>
   <component name="RunManager" selected="Application.RMQApplication1">

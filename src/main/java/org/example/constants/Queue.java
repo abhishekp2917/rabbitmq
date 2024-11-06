@@ -14,6 +14,8 @@ public final class Queue {
     public static final String Q_CLAIM_NORMAL = "q.claim.normal";
     public static final String Q_ENCODING_VIDEO = "q.encoding.video";
     public static final String Q_ENCODING_VIDEO_DLX = "q.encoding.video.dlx";
+    public static final String Q_MAIL_1 = "q.mail.1";
+    public static final String Q_MAIL_2 = "q.mail.2";
     public static final String Q_MEDIA_UPLOAD_AWS = "q.media.upload.aws";
     public static final String Q_MEDIA_UPLOAD_GCP = "q.media.upload.gcp";
     public static final String Q_MEDIA_UPLOAD_AZURE = "q.payment.creditCard.azure";

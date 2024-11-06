@@ -70,3 +70,74 @@ ________________________________________________________________________________
         respectively, after which excess messages are dead-lettered.
 
 ________________________________________________________________________________________________________________________
+
+*   What is Consistent Hash Exchange ?
+
+>>  A consistent hash exchange in RabbitMQ is a type of exchange that routes messages based on a consistent hashing algorithm,
+    distributing messages across queues in a balanced way.
+
+    This is particularly useful for load balancing when you need specific types of messages to reach the same queue consistently,
+    but without relying on fixed routing keys.
+
+    Run below command to enable Consistent Hash Exchange
+
+        ```
+            rabbitmq-plugins enable rabbitmq_consistent_hash_exchange
+        ```
+
+    Create Consistent Hash Exchange by defining exchange type as 'x-consistent-hash'. For the binding, set the routing key
+    as integer which will describe the weightage of that binding and based on which message will be routed to the queues.
+
+        ```
+            @Bean
+            public Queue mailQueue1() {
+                Map<String, Object> args = new HashMap<>();
+                args.put("x-queue-type", QueueType.CLASSIC);
+                return new Queue(org.example.constants.Queue.Q_MAIL_1, true, false, false, args);
+            }
+
+            @Bean
+            public Queue mailQueue2() {
+                Map<String, Object> args = new HashMap<>();
+                args.put("x-queue-type", QueueType.CLASSIC);
+                return new Queue(org.example.constants.Queue.Q_MAIL_2, true, false, false, args);
+            }
+
+            @Bean
+            public Exchange mailExchange() {
+                return new CustomExchange(org.example.constants.Exchange.X_MAIL, ExchangeType.X_CONSISTENT_HASH, true, false);
+            }
+
+            @Bean
+            public Binding mailBindingOne() {
+                return BindingBuilder.bind(mailQueue1()).to(mailExchange()).with("3").noargs();
+            }
+
+            @Bean
+            public Binding mailBindingTwo() {
+                return BindingBuilder.bind(mailQueue2()).to(mailExchange()).with("2").noargs();
+            }
+        ```
+
+    Publish message to the exchange and specify a routing key for each messages. Spring will generate a hashcode of that
+    routing key so that message to could route to the queue.
+
+        ```
+            @Autowired
+            private RabbitTemplate rabbitTemplate;
+
+            public void publishMails(List<Mail> mails) {
+                MessagePostProcessor messagePostProcessor = message -> {
+                    message.getMessageProperties().setHeader("user", "Abhishek");
+                    message.getMessageProperties().setDeliveryMode(MessageDeliveryMode.PERSISTENT);
+                    message.getMessageProperties().setPriority(1);
+                    message.getMessageProperties().setContentEncoding(StandardCharsets.UTF_8.toString());
+                    message.getMessageProperties().setContentType(MessageProperties.CONTENT_TYPE_JSON);
+                    return message;
+                };
+                mails.forEach(mail -> {
+                    rabbitTemplate.convertAndSend(Exchange.X_MAIL, mail.getTo(), mail, messagePostProcessor);
+                });
+            }
+        ```
+________________________________________________________________________________________________________________________

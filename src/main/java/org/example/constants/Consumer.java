@@ -11,4 +11,5 @@ public final class Consumer {
     public static final String C_STREAM_OFFSET_LAST_1 = "c.stream.offset.last.1";
     public static final String C_STREAM_OFFSET_NEXT_1 = "c.stream.offset.next.1";
     public static final String C_STREAM_OFFSET_TIMESTAMP_1 = "c.stream.offset.timestamp.1";
+    public static final String CG_PAYMENT_SUPER_STREAM_1 = "cg.payment.super.stream.1";
 }
