@@ -6,29 +6,52 @@
     <groupId>org.example</groupId>
     <artifactId>RabbitMQ</artifactId>
     <version>1.0.0</version>
+
     <parent>
+        <!-- This sets the parent to Spring Boot starter parent, which provides default configurations. -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.2.1</version>
     </parent>
+
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
+        <!--
+            Spring Boot starter for web applications. Includes dependencies for building RESTful APIs.
+            Provides web-related functionality such as Tomcat and REST APIs.
+        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!--
+            Spring Boot starter for AMQP (Advanced Message Queuing Protocol). Enables integration with RabbitMQ for messaging.
+            Includes libraries and configurations for RabbitMQ integration, including message listeners and producers.
+        -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
+
+        <!--
+            Lombok is a Java library that helps to reduce boilerplate code by generating getters, setters, constructors, etc.
+            Enables the use of Lombok annotations in the project to simplify code and improve readability.
+        -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+
+        <!--
+            Spring Rabbit Stream for RabbitMQ stream-based communication.
+            Adds support for RabbitMQ Streams, which provides a high-throughput messaging model based on streams.
+        -->
         <dependency>
             <groupId>org.springframework.amqp</groupId>
             <artifactId>spring-rabbit-stream</artifactId>
