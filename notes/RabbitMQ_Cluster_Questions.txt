@@ -1,0 +1,12 @@
+*   What is RabbitMQ ?
+
+>>  RabbitMQ is an open-source message broker that facilitates communication between different applications, systems,
+    or services.
+
+    It implements the Advanced Message Queuing Protocol (AMQP), but also supports other protocols like MQTT and STOMP.
+
+    Essentially, RabbitMQ acts as a message queue, enabling asynchronous communication and decoupling systems to improve
+    scalability and reliability.
+
+________________________________________________________________________________________________________________________
+
